@@ -4,11 +4,11 @@ class Event < ActiveRecord::Base
   validates :content, length: { maximum: 2000 }, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
-  validates :stat_time_should_be_before_end_time
+  validate :start_time_should_be_before_end_time
 
   private
 
-  def stat_time_should_be_before_end_time
+  def start_time_should_be_before_end_time
     return unless start_time && end_time
 
     if start_time >= end_time
